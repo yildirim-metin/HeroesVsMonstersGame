@@ -4,19 +4,29 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float speed = 3f;
-    public Rigidbody2D rigidbody;
-    public PlayerInput input;
+    public float speed = 5f;
+    public Rigidbody2D rigidBody;
 
+    private PlayerInput input;
     private Vector2 _movement;
     private InputAction _action;
 
     private void Awake()
     {
-        rigidbody = GetComponent<Rigidbody2D>();
+        rigidBody = GetComponent<Rigidbody2D>();
         input = GetComponent<PlayerInput>();
         input.actions = Instantiate(input.actions);
         _action = input.actions["Move"];
+    }
+
+    private void OnEnable()
+    {
+        _action.Enable();
+    }
+
+    private void OnDisable()
+    {
+        _action.Disable();
     }
 
     void Update()
@@ -26,6 +36,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rigidbody.linearVelocity = _movement * speed;
+        rigidBody.linearVelocity = _movement.normalized * speed;
     }
 }
