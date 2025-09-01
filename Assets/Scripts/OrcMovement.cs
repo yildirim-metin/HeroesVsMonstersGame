@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class OrcMovement : MonoBehaviour
 {
-    private float moveInterval = 0.3f;
-    private float speed = 3.0f;
+    private readonly float _moveInterval = 0.3f;
+    private readonly float _speed = 3.0f;
     public Rigidbody2D rigidBody;
 
     void Start()
@@ -19,9 +19,9 @@ public class OrcMovement : MonoBehaviour
         {
             Vector2 direction = GetRandomDirection();
 
-            rigidBody.linearVelocity = direction * speed;
+            rigidBody.linearVelocity = direction * _speed;
 
-            yield return new WaitForSeconds(moveInterval);
+            yield return new WaitForSeconds(_moveInterval);
         }
     }
 
