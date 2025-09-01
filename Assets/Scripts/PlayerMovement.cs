@@ -6,6 +6,8 @@ public class PlayerMovement : MonoBehaviour
 {
     public float speed = 5f;
     public Rigidbody2D rigidBody;
+    public Animator animator;
+    public SpriteRenderer spriteRenderer;
 
     private PlayerInput input;
     private Vector2 _movement;
@@ -14,6 +16,8 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+
         input = GetComponent<PlayerInput>();
         input.actions = Instantiate(input.actions);
         _action = input.actions["Move"];
@@ -32,6 +36,12 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         _movement = _action.ReadValue<Vector2>();
+        animator.SetFloat("Speed", _movement.sqrMagnitude);
+        
+        if (_movement.x != 0)
+        {
+            spriteRenderer.flipX = _movement.x < 0;
+        }
     }
 
     private void FixedUpdate()
