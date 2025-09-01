@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _movement = _action.ReadValue<Vector2>();
         animator.SetFloat("Speed", _movement.sqrMagnitude);
-        
+
         if (_movement.x != 0)
         {
             spriteRenderer.flipX = _movement.x < 0;
